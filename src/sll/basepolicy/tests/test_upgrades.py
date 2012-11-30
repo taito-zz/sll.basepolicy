@@ -1,3 +1,4 @@
+from Products.CMFCore.utils import getToolByName
 from plone.registry.interfaces import IRegistry
 from sll.basepolicy.tests.base import IntegrationTestCase
 from zope.component import getUtility
@@ -27,3 +28,13 @@ class TestCase(IntegrationTestCase):
         reimport_profile(self.portal, 'PROFILE', 'NAME')
         getToolByName().runImportStepFromProfile.assert_called_with(
             'PROFILE', 'NAME', run_dependencies=False, purge_old=False)
+
+    def test_install_package(self):
+        installer = getToolByName(self.portal, 'portal_quickinstaller')
+        installer.uninstallProducts(['abita.development'])
+        self.assertFalse(installer.isProductInstalled('abita.development'))
+
+        from sll.basepolicy.upgrades import install_packages
+        install_packages(self.portal, 'abita.development')
+
+        self.assertTrue(installer.isProductInstalled('abita.development'))
