@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<portlets
+  i18n:domain="sll.basepolicy"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <!-- Hide Classic portlet -->
+  <portlet addview="portlets.Classic" remove="true" />
+
+</portlets>
+

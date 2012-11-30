@@ -1,0 +1,6 @@
+<configure
+  i18n_domain="sll.basepolicy"
+  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  xmlns="http://namespaces.zope.org/zope">
+
+</configure>

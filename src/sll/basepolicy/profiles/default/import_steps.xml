@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step
+    handler="sll.basepolicy.setuphandlers.setupVarious"
+    id="sll.basepolicy.various"
+    title="sll.basepolicy: miscellaneous import steps"
+    version="2012-0001">
+    Various import steps that are not handled by GS import/export handlers.
+  </import-step>
+</import-steps>
