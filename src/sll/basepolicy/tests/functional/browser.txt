@@ -1,3 +1,9 @@
 Log in as Manager::
 
     >>> browser.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+
+There should not be classic portlet available at /@@manage-portlets::
+
+    >>> browser.open('/@@manage-portlets')
+    >>> 'portlets.Classic' in browser.contents
+    False
