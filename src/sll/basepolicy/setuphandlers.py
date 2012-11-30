@@ -1,4 +1,15 @@
+from Products.CMFCore.utils import getToolByName
+
 import logging
+
+
+logger = logging.getLogger(__name__)
+
+
+def set_firstweekday(context):
+    calendar = getToolByName(context, 'portal_calendar')
+    logger.info('Setting first weekday to Monday.')
+    calendar.firstweekday = 0
 
 
 def setupVarious(context):
@@ -7,7 +18,7 @@ def setupVarious(context):
         return
 
     portal = context.getSite()
-    logger = logging.getLogger(__name__)
+    set_firstweekday(portal)
 
     from sll.basepolicy.upgrades import setups
     for setup_func in setups:

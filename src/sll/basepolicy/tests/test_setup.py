@@ -158,6 +158,10 @@ class TestCase(IntegrationTestCase):
         permission = "plone.portlet.static: Add static portlet"
         self.assertEqual(self.portal.acquiredRolesAreUsedBy(permission), 'CHECKED')
 
+    def test_setuphanlders__set_firstweekday(self):
+        calendar = getToolByName(self.portal, 'portal_calendar')
+        self.assertEqual(calendar.firstweekday, 0)
+
     def test_tinymce__link_using_uids(self):
         tinymce = getToolByName(self.portal, 'portal_tinymce')
         self.assertTrue(tinymce.link_using_uids)
@@ -170,44 +174,44 @@ class TestCase(IntegrationTestCase):
         workflow = getToolByName(self.portal, 'portal_workflow')
         return workflow[name]
 
-    def test_two_states_workflow__description(self):
+    def test_workflows__two_states_workflow__description(self):
         workflow = self.get_workflow('two_states_workflow')
         self.assertEqual(workflow.description, 'Either Private or Published state.')
 
-    def test_two_states_workflow__initial_state(self):
+    def test_workflows__two_states_workflow__initial_state(self):
         workflow = self.get_workflow('two_states_workflow')
         self.assertEqual(workflow.initial_state, 'private')
 
-    def test_two_states_workflow__manager_bypass(self):
+    def test_workflows__two_states_workflow__manager_bypass(self):
         workflow = self.get_workflow('two_states_workflow')
         self.assertFalse(workflow.manager_bypass)
 
-    def test_two_states_workflow__state_variable(self):
+    def test_workflows__two_states_workflow__state_variable(self):
         workflow = self.get_workflow('two_states_workflow')
         self.assertEqual(workflow.state_var, 'review_state')
 
-    def test_two_states_workflow__title(self):
+    def test_workflows__two_states_workflow__title(self):
         workflow = self.get_workflow('two_states_workflow')
         self.assertEqual(workflow.title, 'Two States Workflow')
 
-    def test_two_states_workflow__permissions(self):
+    def test_workflows__two_states_workflow__permissions(self):
         workflow = self.get_workflow('two_states_workflow')
         self.assertEqual(workflow.permissions, (
             'Access contents information',
             'Modify portal content',
             'View'))
 
-    def test_two_states_workflow__states__private__title(self):
+    def test_workflows__two_states_workflow__states__private__title(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.private
         self.assertEqual(state.title, 'Private')
 
-    def test_two_states_workflow__states__private__description(self):
+    def test_workflows__two_states_workflow__states__private__description(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.private
         self.assertEqual(state.description, '')
 
-    def test_two_states_workflow__states__private__permission__Access_contents_information(self):
+    def test_workflows__two_states_workflow__states__private__permission__Access_contents_information(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.private
         self.assertEqual(state.getPermissionInfo('Access contents information'), {
@@ -215,7 +219,7 @@ class TestCase(IntegrationTestCase):
             'roles': ['Contributor', 'Editor', 'Manager', 'Owner', 'Site Administrator'],
         })
 
-    def test_two_states_workflow__states__private__permission__Modify_portal_content(self):
+    def test_workflows__two_states_workflow__states__private__permission__Modify_portal_content(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.private
         self.assertEqual(state.getPermissionInfo('Modify portal content'), {
@@ -223,7 +227,7 @@ class TestCase(IntegrationTestCase):
             'roles': ['Contributor', 'Editor', 'Manager', 'Owner', 'Site Administrator'],
         })
 
-    def test_two_states_workflow__states__private__permission__View(self):
+    def test_workflows__two_states_workflow__states__private__permission__View(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.private
         self.assertEqual(state.getPermissionInfo('View'), {
@@ -231,17 +235,17 @@ class TestCase(IntegrationTestCase):
             'roles': ['Contributor', 'Editor', 'Manager', 'Owner', 'Site Administrator'],
         })
 
-    def test_two_states_workflow__states__published__title(self):
+    def test_workflows__two_states_workflow__states__published__title(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.published
         self.assertEqual(state.title, 'Published')
 
-    def test_two_states_workflow__states__published__description(self):
+    def test_workflows__two_states_workflow__states__published__description(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.published
         self.assertEqual(state.description, '')
 
-    def test_two_states_workflow__states__published__permission__Access_contents_information(self):
+    def test_workflows__two_states_workflow__states__published__permission__Access_contents_information(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.published
         self.assertEqual(state.getPermissionInfo('Access contents information'), {
@@ -249,7 +253,7 @@ class TestCase(IntegrationTestCase):
             'roles': ['Anonymous', 'Authenticated', 'Contributor', 'Editor', 'Manager', 'Owner', 'Site Administrator'],
         })
 
-    def test_two_states_workflow__states__published__permission__Modify_portal_content(self):
+    def test_workflows__two_states_workflow__states__published__permission__Modify_portal_content(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.published
         self.assertEqual(state.getPermissionInfo('Modify portal content'), {
@@ -257,7 +261,7 @@ class TestCase(IntegrationTestCase):
             'roles': ['Contributor', 'Editor', 'Manager', 'Owner', 'Site Administrator'],
         })
 
-    def test_two_states_workflow__states__published__permission__View(self):
+    def test_workflows__two_states_workflow__states__published__permission__View(self):
         workflow = self.get_workflow('two_states_workflow')
         state = workflow.states.published
         self.assertEqual(state.getPermissionInfo('View'), {
@@ -265,258 +269,258 @@ class TestCase(IntegrationTestCase):
             'roles': ['Anonymous', 'Authenticated', 'Contributor', 'Editor', 'Manager', 'Owner', 'Site Administrator'],
         })
 
-    def test_two_states_workflow__transitions__hide__after_script(self):
+    def test_workflows__two_states_workflow__transitions__hide__after_script(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.after_script_name, '')
 
-    def test_two_states_workflow__transitions__hide__before_script(self):
+    def test_workflows__two_states_workflow__transitions__hide__before_script(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.script_name, '')
 
-    def test_two_states_workflow__transitions__hide__new_state(self):
+    def test_workflows__two_states_workflow__transitions__hide__new_state(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.new_state_id, 'private')
 
-    def test_two_states_workflow__transitions__hide__title(self):
+    def test_workflows__two_states_workflow__transitions__hide__title(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.title, 'Make private')
 
-    def test_two_states_workflow__transitions__hide__trigger(self):
+    def test_workflows__two_states_workflow__transitions__hide__trigger(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.trigger_type, 1)
 
-    def test_two_states_workflow__transitions__hide__description(self):
+    def test_workflows__two_states_workflow__transitions__hide__description(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.description, 'Making an item private means that it will not be visible to non-authorized members.')
 
-    def test_two_states_workflow__transitions__hide__action__category(self):
+    def test_workflows__two_states_workflow__transitions__hide__action__category(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.actbox_category, 'workflow')
 
-    def test_two_states_workflow__transitions__hide__action__icon(self):
+    def test_workflows__two_states_workflow__transitions__hide__action__icon(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.actbox_icon, '')
 
-    def test_two_states_workflow__transitions__hide__action__url(self):
+    def test_workflows__two_states_workflow__transitions__hide__action__url(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.actbox_url,
             '%(content_url)s/content_status_modify?workflow_action=hide')
 
-    def test_two_states_workflow__transitions__hide__guard(self):
+    def test_workflows__two_states_workflow__transitions__hide__guard(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.hide
         self.assertEqual(transition.guard.permissions, ('Modify portal content',))
 
-    def test_two_states_workflow__transitions__publish__after_script(self):
+    def test_workflows__two_states_workflow__transitions__publish__after_script(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.after_script_name, '')
 
-    def test_two_states_workflow__transitions__publish__before_script(self):
+    def test_workflows__two_states_workflow__transitions__publish__before_script(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.script_name, '')
 
-    def test_two_states_workflow__transitions__publish__new_state(self):
+    def test_workflows__two_states_workflow__transitions__publish__new_state(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.new_state_id, 'published')
 
-    def test_two_states_workflow__transitions__publish__title(self):
+    def test_workflows__two_states_workflow__transitions__publish__title(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.title, 'Publish')
 
-    def test_two_states_workflow__transitions__publish__trigger(self):
+    def test_workflows__two_states_workflow__transitions__publish__trigger(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.trigger_type, 1)
 
-    def test_two_states_workflow__transitions__publish__description(self):
+    def test_workflows__two_states_workflow__transitions__publish__description(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.description, 'Publishing the item makes it visible to other users.')
 
-    def test_two_states_workflow__transitions__publish__action__category(self):
+    def test_workflows__two_states_workflow__transitions__publish__action__category(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.actbox_category, 'workflow')
 
-    def test_two_states_workflow__transitions__publish__action__icon(self):
+    def test_workflows__two_states_workflow__transitions__publish__action__icon(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.actbox_icon, '')
 
-    def test_two_states_workflow__transitions__publish__action__url(self):
+    def test_workflows__two_states_workflow__transitions__publish__action__url(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.actbox_url,
             '%(content_url)s/content_status_modify?workflow_action=publish')
 
-    def test_two_states_workflow__transitions__publish__guard(self):
+    def test_workflows__two_states_workflow__transitions__publish__guard(self):
         workflow = self.get_workflow('two_states_workflow')
         transition = workflow.transitions.publish
         self.assertEqual(transition.guard.permissions, ('Modify portal content',))
 
-    def test_two_states_workflow__variables__action__for_catalog(self):
+    def test_workflows__two_states_workflow__variables__action__for_catalog(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.action
         self.assertFalse(variable.for_catalog)
 
-    def test_two_states_workflow__variables__action__for_status(self):
+    def test_workflows__two_states_workflow__variables__action__for_status(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.action
         self.assertTrue(variable.for_status)
 
-    def test_two_states_workflow__variables__action__updata_always(self):
+    def test_workflows__two_states_workflow__variables__action__updata_always(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.action
         self.assertTrue(variable.update_always)
 
-    def test_two_states_workflow__variables__action__description(self):
+    def test_workflows__two_states_workflow__variables__action__description(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.action
         self.assertEqual(variable.description, 'Previous transition')
 
-    def test_two_states_workflow__variables__action__default(self):
+    def test_workflows__two_states_workflow__variables__action__default(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.action
         self.assertEqual(variable.getDefaultExprText(), 'transition/getId|nothing')
 
-    def test_two_states_workflow__variables__action__guard(self):
+    def test_workflows__two_states_workflow__variables__action__guard(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.action
         self.assertIsNone(variable.info_guard)
 
-    def test_two_states_workflow__variables__actor__for_catalog(self):
+    def test_workflows__two_states_workflow__variables__actor__for_catalog(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.actor
         self.assertFalse(variable.for_catalog)
 
-    def test_two_states_workflow__variables__actor__for_status(self):
+    def test_workflows__two_states_workflow__variables__actor__for_status(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.actor
         self.assertTrue(variable.for_status)
 
-    def test_two_states_workflow__variables__actor__updata_always(self):
+    def test_workflows__two_states_workflow__variables__actor__updata_always(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.actor
         self.assertTrue(variable.update_always)
 
-    def test_two_states_workflow__variables__actor__description(self):
+    def test_workflows__two_states_workflow__variables__actor__description(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.actor
         self.assertEqual(variable.description, 'The ID of the user who performed the last transition')
 
-    def test_two_states_workflow__variables__actor__default(self):
+    def test_workflows__two_states_workflow__variables__actor__default(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.actor
         self.assertEqual(variable.getDefaultExprText(), 'user/getId')
 
-    def test_two_states_workflow__variables__actor__guard(self):
+    def test_workflows__two_states_workflow__variables__actor__guard(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.actor
         self.assertIsNone(variable.info_guard)
 
-    def test_two_states_workflow__variables__comments__for_catalog(self):
+    def test_workflows__two_states_workflow__variables__comments__for_catalog(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.comments
         self.assertFalse(variable.for_catalog)
 
-    def test_two_states_workflow__variables__comments__for_status(self):
+    def test_workflows__two_states_workflow__variables__comments__for_status(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.comments
         self.assertTrue(variable.for_status)
 
-    def test_two_states_workflow__variables__comments__updata_always(self):
+    def test_workflows__two_states_workflow__variables__comments__updata_always(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.comments
         self.assertTrue(variable.update_always)
 
-    def test_two_states_workflow__variables__comments__description(self):
+    def test_workflows__two_states_workflow__variables__comments__description(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.comments
         self.assertEqual(variable.description, 'Comment about the last transition')
 
-    def test_two_states_workflow__variables__comments__default(self):
+    def test_workflows__two_states_workflow__variables__comments__default(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.comments
         self.assertEqual(variable.getDefaultExprText(),
             "python:state_change.kwargs.get('comment', '')")
 
-    def test_two_states_workflow__variables__comments__guard(self):
+    def test_workflows__two_states_workflow__variables__comments__guard(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.comments
         self.assertIsNone(variable.info_guard)
 
-    def test_two_states_workflow__variables__review_history__for_catalog(self):
+    def test_workflows__two_states_workflow__variables__review_history__for_catalog(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.review_history
         self.assertFalse(variable.for_catalog)
 
-    def test_two_states_workflow__variables__review_history__for_status(self):
+    def test_workflows__two_states_workflow__variables__review_history__for_status(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.review_history
         self.assertFalse(variable.for_status)
 
-    def test_two_states_workflow__variables__review_history__updata_always(self):
+    def test_workflows__two_states_workflow__variables__review_history__updata_always(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.review_history
         self.assertFalse(variable.update_always)
 
-    def test_two_states_workflow__variables__review_history__description(self):
+    def test_workflows__two_states_workflow__variables__review_history__description(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.review_history
         self.assertEqual(variable.description, 'Provides access to workflow history')
 
-    def test_two_states_workflow__variables__review_history__default(self):
+    def test_workflows__two_states_workflow__variables__review_history__default(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.review_history
         self.assertEqual(variable.getDefaultExprText(),
             "state_change/getHistory")
 
-    def test_two_states_workflow__variables__review_history__guard(self):
+    def test_workflows__two_states_workflow__variables__review_history__guard(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.review_history
         self.assertEqual(variable.info_guard.permissions,
             ('Request review', 'Review portal content'))
 
-    def test_two_states_workflow__variables__time__for_catalog(self):
+    def test_workflows__two_states_workflow__variables__time__for_catalog(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.time
         self.assertFalse(variable.for_catalog)
 
-    def test_two_states_workflow__variables__time__for_status(self):
+    def test_workflows__two_states_workflow__variables__time__for_status(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.time
         self.assertTrue(variable.for_status)
 
-    def test_two_states_workflow__variables__time__updata_always(self):
+    def test_workflows__two_states_workflow__variables__time__updata_always(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.time
         self.assertTrue(variable.update_always)
 
-    def test_two_states_workflow__variables__time__description(self):
+    def test_workflows__two_states_workflow__variables__time__description(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.time
         self.assertEqual(variable.description, 'When the previous transition was performed')
 
-    def test_two_states_workflow__variables__time__default(self):
+    def test_workflows__two_states_workflow__variables__time__default(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.time
         self.assertEqual(variable.getDefaultExprText(),
             "state_change/getDateTime")
 
-    def test_two_states_workflow__variables__time__guard(self):
+    def test_workflows__two_states_workflow__variables__time__guard(self):
         workflow = self.get_workflow('two_states_workflow')
         variable = workflow.variables.time
         self.assertIsNone(variable.info_guard)
