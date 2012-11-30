@@ -29,7 +29,7 @@ class TestCase(IntegrationTestCase):
         getToolByName().runImportStepFromProfile.assert_called_with(
             'PROFILE', 'NAME', run_dependencies=False, purge_old=False)
 
-    def test_install_package(self):
+    def test_install_packages__one_package(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         installer.uninstallProducts(['abita.development'])
         self.assertFalse(installer.isProductInstalled('abita.development'))
@@ -38,3 +38,15 @@ class TestCase(IntegrationTestCase):
         install_packages(self.portal, 'abita.development')
 
         self.assertTrue(installer.isProductInstalled('abita.development'))
+
+    def test_install_packages__two_packages(self):
+        installer = getToolByName(self.portal, 'portal_quickinstaller')
+        installer.uninstallProducts(['abita.development', 'hexagonit.socialbutton'])
+        self.assertFalse(installer.isProductInstalled('abita.development'))
+        self.assertFalse(installer.isProductInstalled('hexagonit.socialbutton'))
+
+        from sll.basepolicy.upgrades import install_packages
+        install_packages(self.portal, ['abita.development', 'hexagonit.socialbutton'])
+
+        self.assertTrue(installer.isProductInstalled('abita.development'))
+        self.assertTrue(installer.isProductInstalled('hexagonit.socialbutton'))
