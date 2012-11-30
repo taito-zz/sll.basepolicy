@@ -7,7 +7,7 @@ Base policy for sll, slt and ll packages.
 Changelog
 ---------
 
-0.0 (2012-11-30)
+0.1 (2012-11-30)
 ================
 
 - Initial release. [taito]
