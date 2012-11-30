@@ -9,6 +9,10 @@ def get_record(name):
     return getUtility(IRegistry).records.get(name)
 
 
+def get_roles(obj, permission):
+    return sorted([item['name'] for item in obj.rolesOfPermission(permission) if item['selected'] == 'SELECTED'])
+
+
 class TestCase(IntegrationTestCase):
     """TestCase for Plone setup."""
 
@@ -116,7 +120,7 @@ class TestCase(IntegrationTestCase):
 
     def test_rolemap__Manage_portlets__rolesOfPermission(self):
         permission = "Portlets: Manage portlets"
-        self.assertEqual(self.get_roles(self.portal, permission), [
+        self.assertEqual(get_roles(self.portal, permission), [
             'Editor',
             'Manager',
             'Site Administrator'])
@@ -127,7 +131,7 @@ class TestCase(IntegrationTestCase):
 
     def test_rolemap__Manage_own_portlets__rolesOfPermission(self):
         permission = "Portlets: Manage own portlets"
-        self.assertEqual(self.get_roles(self.portal, permission), [
+        self.assertEqual(get_roles(self.portal, permission), [
             'Editor',
             'Manager',
             'Site Administrator'])
@@ -138,7 +142,7 @@ class TestCase(IntegrationTestCase):
 
     def test_rolemap__Add_collection_portlet__rolesOfPermission(self):
         permission = "plone.portlet.collection: Add collection portlet"
-        self.assertEqual(self.get_roles(self.portal, permission), [
+        self.assertEqual(get_roles(self.portal, permission), [
             'Editor',
             'Manager',
             'Site Administrator'])
@@ -149,7 +153,7 @@ class TestCase(IntegrationTestCase):
 
     def test_rolemap__Add_static_portlet__rolesOfPermission(self):
         permission = "plone.portlet.static: Add static portlet"
-        self.assertEqual(self.get_roles(self.portal, permission), [
+        self.assertEqual(get_roles(self.portal, permission), [
             'Editor',
             'Manager',
             'Site Administrator'])

@@ -1,4 +1,3 @@
-from Products.CMFCore.utils import getToolByName
 from plone.registry.interfaces import IRegistry
 from sll.basepolicy.tests.base import IntegrationTestCase
 from zope.component import getUtility
