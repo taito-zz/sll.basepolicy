@@ -3,6 +3,12 @@ from plone.app.testing import TEST_USER_ID
 from sll.basepolicy.tests.base import IntegrationTestCase
 
 
+def get_record(name):
+    from zope.component import getUtility
+    from plone.registry.interfaces import IRegistry
+    return getUtility(IRegistry).records.get(name)
+
+
 class TestCase(IntegrationTestCase):
     """TestCase for Plone setup."""
 
@@ -89,13 +95,8 @@ class TestCase(IntegrationTestCase):
     def test_propertiestool__site_properties__visible_ids(self):
         self.assertTrue(self.get_property('site_properties', 'visible_ids'))
 
-    def get_record(self, name):
-        from zope.component import getUtility
-        from plone.registry.interfaces import IRegistry
-        return getUtility(IRegistry).records.get(name)
-
     def test_registry_record_hexagonit_socialbutton_codes(self):
-        record = self.get_record('hexagonit.socialbutton.codes')
+        record = get_record('hexagonit.socialbutton.codes')
         self.assertEqual(record.value, {
             u'twitter': {u'code_text': u'<a class="social-button twitter" title="Twitter" href="https://twitter.com/share?text=${title}?url=${url}">\n<img src="${portal_url}/++resource++hexagonit.socialbutton/twitter.gif" />\n</a>'},
             u'facebook': {u'code_text': u'<a class="social-button facebook" title="Facebook" target="_blank" href="http://www.facebook.com/sharer.php?t=${title}&u=${url}">\n<img src="${portal_url}/++resource++hexagonit.socialbutton/facebook.gif" />\n</a>'},
@@ -103,7 +104,7 @@ class TestCase(IntegrationTestCase):
         })
 
     def test_registry_record_hexagonit_socialbutton_config(self):
-        record = self.get_record('hexagonit.socialbutton.config')
+        record = get_record('hexagonit.socialbutton.config')
         self.assertEqual(record.value, {
             u'twitter': {u'content_types': u'Document,Folder,FormFolder,Plone Site,News Item,Event', u'view_permission_only': u'True', u'view_models': u'*', u'enabled': u'True', u'viewlet_manager': u'plone.belowcontent'},
             u'facebook': {u'content_types': u'Document,Folder,FormFolder,Plone Site,News Item,Event', u'view_permission_only': u'True', u'view_models': u'*', u'enabled': u'True', u'viewlet_manager': u'plone.belowcontent'},
