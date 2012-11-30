@@ -115,9 +115,6 @@ class TestCase(IntegrationTestCase):
             u'google-plus': {u'content_types': u'Document,Folder,FormFolder,Plone Site,News Item,Event', u'view_permission_only': u'True', u'view_models': u'*', u'enabled': u'True', u'viewlet_manager': u'plone.belowcontent'},
         })
 
-    def get_roles(self, obj, permission):
-        return sorted([item['name'] for item in obj.rolesOfPermission(permission) if item['selected'] == 'SELECTED'])
-
     def test_rolemap__Manage_portlets__rolesOfPermission(self):
         permission = "Portlets: Manage portlets"
         self.assertEqual(get_roles(self.portal, permission), [

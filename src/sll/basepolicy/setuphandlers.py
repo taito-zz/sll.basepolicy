@@ -19,7 +19,3 @@ def setupVarious(context):
 
     portal = context.getSite()
     set_firstweekday(portal)
-
-    from sll.basepolicy.upgrades import setups
-    for setup_func in setups:
-        setup_func(portal, logger)
