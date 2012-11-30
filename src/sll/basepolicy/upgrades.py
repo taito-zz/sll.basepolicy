@@ -1,3 +1,4 @@
+from Products.CMFCore.utils import getToolByName
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
@@ -16,3 +17,9 @@ setups = []
 def set_record_abita_development_rate(rate):
     logger.info('Setting record: abita.development.rate to {}'.format(rate))
     getUtility(IRegistry)['abita.development.rate'] = rate
+
+
+def reimport_profile(context, profile, name):
+    setup = getToolByName(context, 'portal_setup')
+    logger.info('Reimporting {} with profile: {}.'.format(name, profile))
+    setup.runImportStepFromProfile(profile, name, run_dependencies=False, purge_old=False)
