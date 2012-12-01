@@ -1,5 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles
 from sll.basepolicy.tests.base import IntegrationTestCase
 
 
@@ -32,6 +33,7 @@ class TestCase(IntegrationTestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
     def test_package__installed(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
@@ -221,8 +223,18 @@ class TestCase(IntegrationTestCase):
         for oid in ids:
             self.assertTrue(self.portal[oid].getExcludeFromNav())
 
+    def test_setuphandlers__exclude_from_nav__object_removed(self):
+        ids = ['Members', 'events', 'news']
+        self.portal.manage_delObjects(ids)
+        from sll.basepolicy.setuphandlers import exclude_from_nav
+        exclude_from_nav(self.portal)
+
     def test_setuphanlders__remove_front_page(self):
         self.assertIsNone(self.portal.get('front-page'))
+
+    def test_setuphandlers__remove_front_page__already_removed(self):
+        from sll.basepolicy.setuphandlers import remove_front_page
+        remove_front_page(self.portal)
 
     def test_setuphandlers__remove_skin(self):
         skins = getToolByName(self.portal, 'portal_skins')

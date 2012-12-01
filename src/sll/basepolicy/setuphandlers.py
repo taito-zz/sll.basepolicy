@@ -8,18 +8,21 @@ logger = logging.getLogger(__name__)
 
 def exclude_from_nav(context):
     """Object exclude from nav."""
-    portal = context.getSite()
     ids = ['Members', 'events', 'news']
     for oid in ids:
-        obj = portal.get(oid)
-        logger.info('Excluding from navigation: {}'.format('/'.join(obj.getPhysicalPath())))
-        obj.setExcludeFromNav(True)
-        obj.reindexObject()
+        obj = context.get(oid)
+        if obj:
+            logger.info('Excluding from navigation: {}'.format('/'.join(obj.getPhysicalPath())))
+            obj.setExcludeFromNav(True)
+            obj.reindexObject()
 
 
 def remove_front_page(context):
     logger.info('Removing front-page.')
-    context.manage_delObjects(['front-page'])
+    try:
+        context.manage_delObjects(['front-page'])
+    except AttributeError:
+        logger.info('The front-page is already removed.')
 
 
 def remove_skin(context, names):
@@ -52,7 +55,7 @@ def setupVarious(context):
         return
 
     portal = context.getSite()
-    exclude_from_nav(context)
+    exclude_from_nav(portal)
     remove_front_page(portal)
     remove_skin(portal, ('Plone Default', ))
     set_firstweekday(portal)
