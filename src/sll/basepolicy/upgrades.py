@@ -19,12 +19,6 @@ def set_record_abita_development_rate(rate):
     getUtility(IRegistry)['abita.development.rate'] = rate
 
 
-def reimport_profile(context, profile, name):
-    setup = getToolByName(context, 'portal_setup')
-    logger.info('Reimporting {} with profile: {}.'.format(name, profile))
-    setup.runImportStepFromProfile(profile, name, run_dependencies=False, purge_old=False)
-
-
 def install_packages(context, names):
     """Installs package(s)."""
     installer = getToolByName(context, 'portal_quickinstaller')
@@ -33,3 +27,8 @@ def install_packages(context, names):
     for name in names:
         logger.info('Installing {}.'.format(name))
         installer.installProduct(name)
+
+
+def install_sll_basepolicy(context):
+    """Intall sll.basepolicy"""
+    install_packages(context, 'sll.basepolicy')

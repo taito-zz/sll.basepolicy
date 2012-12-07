@@ -25,6 +25,7 @@ setup(
     install_requires=[
         'Products.CMFPlone',
         'abita.development',
+        'abita.utils',
         'hexagonit.socialbutton',
         'hexagonit.testing',
         'sll.locales',

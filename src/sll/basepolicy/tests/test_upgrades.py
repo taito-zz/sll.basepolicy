@@ -22,13 +22,6 @@ class TestCase(IntegrationTestCase):
 
         self.assertEqual(registry['abita.development.rate'], 5.0)
 
-    @mock.patch('sll.basepolicy.upgrades.getToolByName')
-    def test_reimport_profile(self, getToolByName):
-        from sll.basepolicy.upgrades import reimport_profile
-        reimport_profile(self.portal, 'PROFILE', 'NAME')
-        getToolByName().runImportStepFromProfile.assert_called_with(
-            'PROFILE', 'NAME', run_dependencies=False, purge_old=False)
-
     def test_install_packages__one_package(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         installer.uninstallProducts(['abita.development'])
@@ -50,3 +43,9 @@ class TestCase(IntegrationTestCase):
 
         self.assertTrue(installer.isProductInstalled('abita.development'))
         self.assertTrue(installer.isProductInstalled('hexagonit.socialbutton'))
+
+    @mock.patch('sll.basepolicy.upgrades.install_packages')
+    def test_install_sll_basepolicy(self, install_packages):
+        from sll.basepolicy.upgrades import install_sll_basepolicy
+        install_sll_basepolicy(self.portal)
+        install_packages.assert_called_with(self.portal, 'sll.basepolicy')
