@@ -7,6 +7,11 @@ Base policy for sll, slt and ll packages.
 Changelog
 ---------
 
+0.3 (2012-12-07)
+================
+
+- Covered tests. [taito]
+
 0.2 (2012-11-30)
 ================
 
