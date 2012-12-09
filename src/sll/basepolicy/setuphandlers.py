@@ -28,8 +28,8 @@ def remove_front_page(context):
 def remove_skin(context, names):
     """Removes skin by name."""
     skins = getToolByName(context, 'portal_skins')
+    names = [name for name in names if skins.getSkinByName(name)]
     skins.manage_skinLayers(chosen=names, del_skin=True)
-
 
 def set_firstweekday(context):
     calendar = getToolByName(context, 'portal_calendar')

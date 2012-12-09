@@ -293,6 +293,11 @@ class TestCase(IntegrationTestCase):
         state = workflow.states.private
         self.assertEqual(state.description, '')
 
+    def test_workflows__two_states_workflow__states__private__transitions(self):
+        workflow = get_workflow(self.portal, 'two_states_workflow')
+        state = workflow.states.private
+        self.assertEqual(state.getTransitions(), ('publish',))
+
     def test_workflows__two_states_workflow__states__private__permission__Access_contents_information(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
         state = workflow.states.private
@@ -326,6 +331,11 @@ class TestCase(IntegrationTestCase):
         workflow = get_workflow(self.portal, 'two_states_workflow')
         state = workflow.states.published
         self.assertEqual(state.description, '')
+
+    def test_workflows__two_states_workflow__states__published__transitions(self):
+        workflow = get_workflow(self.portal, 'two_states_workflow')
+        state = workflow.states.published
+        self.assertEqual(state.getTransitions(), ('hide',))
 
     def test_workflows__two_states_workflow__states__published__permission__Access_contents_information(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
