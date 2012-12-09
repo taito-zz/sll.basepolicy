@@ -7,6 +7,11 @@ Base policy for sll, slt and ll packages.
 Changelog
 ---------
 
+0.4 (2012-12-09)
+================
+
+- Fixed workflow transition id. [taito]
+
 0.3 (2012-12-07)
 ================
 
