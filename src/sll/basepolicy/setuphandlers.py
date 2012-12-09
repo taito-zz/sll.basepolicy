@@ -31,6 +31,7 @@ def remove_skin(context, names):
     names = [name for name in names if skins.getSkinByName(name)]
     skins.manage_skinLayers(chosen=names, del_skin=True)
 
+
 def set_firstweekday(context):
     calendar = getToolByName(context, 'portal_calendar')
     logger.info('Setting first weekday to Monday.')
