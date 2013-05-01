@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='sll.basepolicy',
-    version='0.4',
+    version='0.5',
     description='Base policy for sll, slt and ll packages.',
     long_description=open("README.rst").read(),
     classifiers=[
