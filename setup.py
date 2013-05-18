@@ -26,7 +26,7 @@ setup(
         'abita.development',
         'abita.utils',
         'hexagonit.socialbutton',
-        'sll.locales',
+        'sll.baselocales',
         'setuptools'],
     extras_require={'test': ['hexagonit.testing']},
     entry_points="""

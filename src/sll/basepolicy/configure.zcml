@@ -5,7 +5,7 @@
 
   <include package="abita.development"/>
   <include package="hexagonit.socialbutton"/>
-  <include package="sll.locales"/>
+  <include package="sll.baselocales"/>
   <include file="upgrades.zcml"/>
 
   <genericsetup:registerProfile
