@@ -49,3 +49,10 @@ class TestCase(IntegrationTestCase):
         from sll.basepolicy.upgrades import install_sll_basepolicy
         install_sll_basepolicy(self.portal)
         install_packages.assert_called_with(self.portal, 'sll.basepolicy')
+
+    def test_reimport_registry(self):
+        from sll.basepolicy.upgrades import reimport_registry
+        setup = mock.Mock()
+        reimport_registry(setup)
+        setup.runImportStepFromProfile.assert_called_with(
+            'profile-sll.basepolicy:default', 'plone.app.registry', run_dependencies=False, purge_old=False)

@@ -7,6 +7,11 @@ Base policy for sll, slt and ll packages.
 Changelog
 ---------
 
+0.6 (2013-05-20)
+================
+
+- Disabled search_rss_enabled. [taito]
+
 0.5.1 (2013-05-18)
 ==================
 

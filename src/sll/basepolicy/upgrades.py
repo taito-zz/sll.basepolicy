@@ -32,3 +32,8 @@ def install_packages(context, names):
 def install_sll_basepolicy(context):
     """Intall sll.basepolicy"""
     install_packages(context, 'sll.basepolicy')
+
+
+def reimport_registry(setup):
+    """Reimport plone.app.registry"""
+    setup.runImportStepFromProfile('profile-sll.basepolicy:default', 'plone.app.registry', run_dependencies=False, purge_old=False)

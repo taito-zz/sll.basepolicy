@@ -75,7 +75,7 @@ class TestCase(IntegrationTestCase):
     def test_metadata__version(self):
         setup = getToolByName(self.portal, 'portal_setup')
         self.assertEqual(
-            setup.getVersionForProfile('profile-sll.basepolicy:default'), u'0')
+            setup.getVersionForProfile('profile-sll.basepolicy:default'), u'1')
 
     def test_memberdata_properties__wysiwyg_editor(self):
         membership = getToolByName(self.portal, 'portal_membership')
@@ -123,6 +123,10 @@ class TestCase(IntegrationTestCase):
 
     def test_propertiestool__site_properties__visible_ids(self):
         self.assertTrue(get_property(self.portal, 'site_properties', 'visible_ids'))
+
+    def test_registry_record_search_rss_enabeled(self):
+        record = get_record('Products.CMFPlone.interfaces.syndication.ISiteSyndicationSettings.search_rss_enabled')
+        self.assertFalse(record.value)
 
     def test_registry_record_hexagonit_socialbutton_codes(self):
         record = get_record('hexagonit.socialbutton.codes')

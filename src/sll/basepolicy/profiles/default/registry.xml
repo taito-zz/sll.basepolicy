@@ -67,4 +67,8 @@
       </element>
     </value>
   </record>
+  <record
+    name="Products.CMFPlone.interfaces.syndication.ISiteSyndicationSettings.search_rss_enabled">
+    <value>False</value>
+  </record>
 </registry>

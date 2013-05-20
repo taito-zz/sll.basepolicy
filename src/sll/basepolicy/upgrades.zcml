@@ -3,4 +3,14 @@
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   xmlns="http://namespaces.zope.org/zope">
 
+  <genericsetup:upgradeStep
+    description=""
+    destination="1"
+    handler="sll.basepolicy.upgrades.reimport_registry"
+    profile="sll.basepolicy:default"
+    sortkey="1"
+    source="0"
+    title="Reimport plone.app.registry"
+    />
+
 </configure>
