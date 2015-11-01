@@ -408,8 +408,7 @@ class TestCase(IntegrationTestCase):
     def test_workflows__two_states_workflow__transitions__hide__action__url(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
         transition = workflow.transitions.hide
-        self.assertEqual(transition.actbox_url,
-            '%(content_url)s/content_status_modify?workflow_action=hide')
+        self.assertEqual(transition.actbox_url, '%(content_url)s/content_status_modify?workflow_action=hide')
 
     def test_workflows__two_states_workflow__transitions__hide__guard(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
@@ -459,8 +458,7 @@ class TestCase(IntegrationTestCase):
     def test_workflows__two_states_workflow__transitions__publish__action__url(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
         transition = workflow.transitions.publish
-        self.assertEqual(transition.actbox_url,
-            '%(content_url)s/content_status_modify?workflow_action=publish')
+        self.assertEqual(transition.actbox_url, '%(content_url)s/content_status_modify?workflow_action=publish')
 
     def test_workflows__two_states_workflow__transitions__publish__guard(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
@@ -550,8 +548,7 @@ class TestCase(IntegrationTestCase):
     def test_workflows__two_states_workflow__variables__comments__default(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
         variable = workflow.variables.comments
-        self.assertEqual(variable.getDefaultExprText(),
-            "python:state_change.kwargs.get('comment', '')")
+        self.assertEqual(variable.getDefaultExprText(), "python:state_change.kwargs.get('comment', '')")
 
     def test_workflows__two_states_workflow__variables__comments__guard(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
@@ -581,14 +578,12 @@ class TestCase(IntegrationTestCase):
     def test_workflows__two_states_workflow__variables__review_history__default(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
         variable = workflow.variables.review_history
-        self.assertEqual(variable.getDefaultExprText(),
-            "state_change/getHistory")
+        self.assertEqual(variable.getDefaultExprText(), "state_change/getHistory")
 
     def test_workflows__two_states_workflow__variables__review_history__guard(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
         variable = workflow.variables.review_history
-        self.assertEqual(variable.info_guard.permissions,
-            ('Request review', 'Review portal content'))
+        self.assertEqual(variable.info_guard.permissions, ('Request review', 'Review portal content'))
 
     def test_workflows__two_states_workflow__variables__time__for_catalog(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
@@ -613,8 +608,7 @@ class TestCase(IntegrationTestCase):
     def test_workflows__two_states_workflow__variables__time__default(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')
         variable = workflow.variables.time
-        self.assertEqual(variable.getDefaultExprText(),
-            "state_change/getDateTime")
+        self.assertEqual(variable.getDefaultExprText(), "state_change/getDateTime")
 
     def test_workflows__two_states_workflow__variables__time__guard(self):
         workflow = get_workflow(self.portal, 'two_states_workflow')

@@ -7,6 +7,11 @@ Base policy for sll, slt and ll packages.
 Changelog
 ---------
 
+0.7 (2015-11-01)
+================
+
+- Remove dependency from abita.utils. [taito]
+
 0.6 (2013-05-20)
 ================
 

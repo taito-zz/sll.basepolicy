@@ -24,7 +24,6 @@ setup(
     zip_safe=False,
     install_requires=[
         'abita.development',
-        'abita.utils',
         'hexagonit.socialbutton',
         'sll.baselocales',
         'setuptools'],
